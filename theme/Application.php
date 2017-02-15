@@ -2,9 +2,9 @@
 
 namespace GeminiLabs\Castor;
 
+use GeminiLabs\Castor\AliasLoader;
 use GeminiLabs\Castor\Container;
-use GeminiLabs\Castor\Facades\AliasLoader;
-use GeminiLabs\Castor\Facades\Facade;
+use GeminiLabs\Castor\Facade;
 
 final class Application extends Container
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace GeminiLabs\Castor\Facades;
+namespace GeminiLabs\Castor;
 
 use GeminiLabs\Castor\Application;
 use RuntimeException;
@@ -10,7 +10,7 @@ abstract class Facade
 	/**
 	 * The application instance being facaded.
 	 *
-	 * @var \GeminiLabs\Castor\Application
+	 * @var Application
 	 */
 	protected static $app;
 
@@ -54,7 +54,7 @@ abstract class Facade
 	/**
 	 * Get the application instance behind the facade.
 	 *
-	 * @return \GeminiLabs\Castor\Application
+	 * @return Application
 	 */
 	public static function getFacadeApplication()
 	{

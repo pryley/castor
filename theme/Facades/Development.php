@@ -2,6 +2,8 @@
 
 namespace GeminiLabs\Castor\Facades;
 
+use GeminiLabs\Castor\Facade;
+
 class Development extends Facade
 {
     /**
