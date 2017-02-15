@@ -40,10 +40,27 @@ abstract class Container
 	}
 
 	/**
+	 * Prefix the current namespace to the abstract if absent
+	 *
+	 * @param string $abstract
+	 *
+	 * @return string
+	 */
+	public function addNamespace( $abstract )
+	{
+		if( strpos( $abstract, __NAMESPACE__ ) === false && !class_exists( $abstract )) {
+			$abstract = __NAMESPACE__ . "\\$abstract";
+		}
+
+		return $abstract;
+	}
+
+	/**
 	 * Bind a service to the container.
 	 *
-	 * @param $alias
-	 * @param $concrete
+	 * @param string $alias
+	 * @param mixed  $concrete
+	 *
 	 * @return mixed
 	 */
 	public function bind( $alias, $concrete )
@@ -53,39 +70,35 @@ abstract class Container
 
 	/**
 	 * Resolve the given type from the container.
+	 * Allow unbound aliases that omit the root namespace
+	 * i.e. 'Controller' translates to 'GeminiLabs\Castor\Controller'
 	 *
-	 * @param  string      $abstract
-	 * @param  bool|string $prefixed
+	 * @param mixed $abstract
+	 *
 	 * @return mixed
 	 */
-	public function make( $abstract, $prefixed = false  )
+	public function make( $abstract )
 	{
-		if( isset( $this->services[$abstract] ) && is_callable( $this->services[$abstract] )) {
-			return call_user_func_array( $this->services[$abstract], [$this] );
+		$service = isset( $this->services[$abstract] )
+			? $this->services[$abstract]
+			: $this->addNamespace( $abstract );
+
+		if( is_callable( $service )) {
+			return call_user_func_array( $service, [$this] );
+		}
+		if( is_object( $service )) {
+			return $service;
 		}
 
-		if( isset( $this->services[$abstract] ) && is_object( $this->services[$abstract] )) {
-			return $this->services[$abstract];
-		}
-
-		if( isset( $this->services[$abstract] ) && class_exists( $this->services[$abstract] )) {
-			return $this->resolve( $this->services[$abstract] );
-		}
-
-		// Allow unbound aliases that omit the root namespace
-		// i.e. 'Html\Field' translates to 'GeminiLabs\Castor\Html\Field'
-		if( $prefixed === false && strpos( $abstract, __NAMESPACE__ ) === false && !class_exists( $abstract )) {
-			return $this->make( __NAMESPACE__ . "\\$abstract" , 'prefix abstract with namespace' );
-		}
-
-		return $this->resolve( $abstract );
+		return $this->resolve( $service );
 	}
 
 	/**
 	 * Register a shared binding in the container.
 	 *
-	 * @param string|array         $abstract
+	 * @param string               $abstract
 	 * @param \Closure|string|null $concrete
+	 *
 	 * @return void
 	 */
 	public function singleton( $abstract, $concrete )
@@ -97,6 +110,7 @@ abstract class Container
 	 * Dynamically access container services.
 	 *
 	 * @param string $service
+	 *
 	 * @return mixed
 	 */
 	public function __get( $service )
@@ -109,6 +123,7 @@ abstract class Container
 	 *
 	 * @param string $service
 	 * @param mixed  $callback
+	 *
 	 * @return void
 	 */
 	public function __set( $service, $callback )
@@ -122,7 +137,7 @@ abstract class Container
 	 * @param string $concrete
 	 *
 	 * @return void
-	 * @throws \GeminiLabs\Castor\Exceptions\BindingResolutionException
+	 * @throws BindingResolutionException
 	 */
 	protected function notInstantiable( $concrete )
 	{
@@ -134,44 +149,37 @@ abstract class Container
 	/**
 	 * Resolve a class based dependency from the container.
 	 *
-	 * @param \ReflectionParameter $parameter
+	 * @param mixed $concrete
 	 *
 	 * @return mixed
-	 * @throws \GeminiLabs\Castor\Exceptions\BindingResolutionException
+	 * @throws BindingResolutionException
 	 */
 	protected function resolve( $concrete )
 	{
-		// If the concrete type is a Closure, we will just execute it and hand back the results.
 		if( $concrete instanceof Closure ) {
 			return $concrete( $this );
 		}
 
 		$reflector = new ReflectionClass( $concrete );
 
-		// If the type is not instantiable then we need to bail out.
 		if( !$reflector->isInstantiable() ) {
 			return $this->notInstantiable( $concrete );
 		}
 
-		$constructor = $reflector->getConstructor();
-
-		// If there are no constructors, that means there are no dependencies.
-		if( is_null( $constructor )) {
+		if( is_null(( $constructor = $reflector->getConstructor() ))) {
 			return new $concrete;
 		}
 
-		$dependencies = $constructor->getParameters();
-
-		$instances = $this->resolveDependencies( $dependencies );
-
-		return $reflector->newInstanceArgs( $instances );
+		return $reflector->newInstanceArgs(
+			$this->resolveDependencies( $constructor->getParameters() )
+		);
 	}
 
 	/**
 	 * Resolve a class based dependency from the container.
 	 *
 	 * @return mixed
-	 * @throws \GeminiLabs\Castor\Exceptions\BindingResolutionException
+	 * @throws BindingResolutionException
 	 */
 	protected function resolveClass( ReflectionParameter $parameter )
 	{

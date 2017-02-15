@@ -13,7 +13,7 @@ class Development
 		return ob_get_clean();
 	}
 
-	public function class()
+	public function className()
 	{
 		return $this->isDev() && in_array( DEV, ['css', true] )
 			? 'dev'

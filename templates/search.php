@@ -1,2 +1,1 @@
-<?php Development::storeTemplatePath( __FILE__ ); ?>
-
+<?php Development::storeTemplatePath( __FILE__ );

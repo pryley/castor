@@ -3,7 +3,7 @@
 
 <?php get_template_part( 'partials/head' ); ?>
 
-<body <?php body_class( Development::class() ); ?>>
+<body <?php body_class( Development::className() ); ?>>
 
 	<?php get_template_part( 'partials/outdated' ); ?>
 

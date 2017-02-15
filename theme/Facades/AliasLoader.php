@@ -136,18 +136,6 @@ class AliasLoader
 	}
 
 	/**
-	 * Set the value of the singleton alias loader.
-	 *
-	 * @param \GeminiLabs\Casper\Facades\AliasLoader $loader
-	 *
-	 * @return void
-	 */
-	public static function setInstance( $loader )
-	{
-		static::$instance = $loader;
-	}
-
-	/**
 	 * Prepend the load method to the auto-loader stack.
 	 *
 	 * @return void
