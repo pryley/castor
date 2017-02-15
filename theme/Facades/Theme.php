@@ -11,6 +11,6 @@ class Theme extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return \GeminiLabs\Castor\Theme::class;
+        return \GeminiLabs\Castor\Helpers\Theme::class;
     }
 }

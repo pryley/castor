@@ -11,6 +11,6 @@ class Development extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return \GeminiLabs\Castor\Development::class;
+        return \GeminiLabs\Castor\Helpers\Development::class;
     }
 }

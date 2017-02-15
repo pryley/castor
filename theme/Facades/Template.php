@@ -11,6 +11,6 @@ class Template extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return \GeminiLabs\Castor\Template::class;
+        return \GeminiLabs\Castor\Helpers\Template::class;
     }
 }

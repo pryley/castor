@@ -40,22 +40,6 @@ abstract class Container
 	}
 
 	/**
-	 * Prefix the current namespace to the abstract if absent
-	 *
-	 * @param string $abstract
-	 *
-	 * @return string
-	 */
-	public function addNamespace( $abstract )
-	{
-		if( strpos( $abstract, __NAMESPACE__ ) === false && !class_exists( $abstract )) {
-			$abstract = __NAMESPACE__ . "\\$abstract";
-		}
-
-		return $abstract;
-	}
-
-	/**
 	 * Bind a service to the container.
 	 *
 	 * @param string $alias
@@ -129,6 +113,22 @@ abstract class Container
 	public function __set( $service, $callback )
 	{
 		$this->bind( $service, $callback );
+	}
+
+	/**
+	 * Prefix the current namespace to the abstract if absent
+	 *
+	 * @param string $abstract
+	 *
+	 * @return string
+	 */
+	protected function addNamespace( $abstract )
+	{
+		if( strpos( $abstract, __NAMESPACE__ ) === false && !class_exists( $abstract )) {
+			$abstract = __NAMESPACE__ . "\\$abstract";
+		}
+
+		return $abstract;
 	}
 
 	/**
