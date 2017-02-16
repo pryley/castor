@@ -11,7 +11,7 @@ class Theme
 	 */
 	public function assetPath( $asset )
 	{
-		return $this->paths( 'dir.stylesheet' ) . $asset;
+		return $this->paths( 'dir.stylesheet' ) . 'assets/' . $asset;
 	}
 
 	/**
@@ -21,7 +21,7 @@ class Theme
 	 */
 	public function assetUri( $asset )
 	{
-		return $this->paths( 'uri.stylesheet' ) . $asset;
+		return $this->paths( 'uri.stylesheet' ) . 'assets/' . $asset;
 	}
 
 	/**

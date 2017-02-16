@@ -30,8 +30,8 @@ class Controller
 
 	public function registerAssets()
 	{
-		wp_enqueue_style( 'castor/main.css', Theme::assetPath( 'css/main.css' ), [], null );
-		wp_enqueue_script( 'castor/main.js', Theme::assetPath( 'js/main.js' ), [], null, true );
+		wp_enqueue_style( 'castor/main.css', Theme::assetUri( 'css/main.css' ), [], null );
+		wp_enqueue_script( 'castor/main.js', Theme::assetUri( 'js/main.js' ), [], null, true );
 	}
 
 	public function registerCustomizer( WP_Customize_Manager $manager )
@@ -47,7 +47,7 @@ class Controller
 
 	public function registerCustomizerAssets()
 	{
-		wp_enqueue_script( 'castor/customizer.js', Theme::assetPath( 'js/customizer.js' ), ['customize-preview'], null, true );
+		wp_enqueue_script( 'castor/customizer.js', Theme::assetUri( 'js/customizer.js' ), ['customize-preview'], null, true );
 	}
 
 	public function registerSidebars()

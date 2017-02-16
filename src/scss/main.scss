@@ -1,0 +1,14 @@
+$features: (
+	debug: true,
+	// styled: false,
+	// output: false,
+	buttons: true,
+	icons: true,
+	tables: false,
+);
+
+@import "../../node_modules/nolie.css/src/nolie";
+
+pre {
+	@include line-height(1);
+}
