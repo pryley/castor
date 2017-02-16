@@ -1,7 +1,7 @@
 <?php Development::storeTemplatePath( __FILE__ ); ?>
 
 <nav role="navigation">
-	<div class="wrapper">
+	<div class="container">
 
 	<?php get_template_part( 'partials/logo' ); ?>
 
@@ -11,15 +11,13 @@
 			<div id="nav-toggle"><?= __( 'Menu', 'castor' ); ?></div>
 		</div>
 
-		<div class="nav-collapse">
-			<?php
+		<div class="nav-collapse"><?php
 				// wp_nav_menu( [
 				// 	'theme_location' => 'primary_navigation',
 				// 	'walker'         => new NavWalker(),
 				// 	'menu_class'     => 'nav horiz'
 				// ]);
-			?>
-		</div>
+		?></div>
 
 	<?php endif; ?>
 

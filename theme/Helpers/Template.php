@@ -47,7 +47,13 @@ class Template
 	public function setLayout( $template )
 	{
 		$this->template = strstr( $template, 'templates/' );
-		$template = apply_filters( 'castor/templates/layout', 'templates/layouts/base.php' );
+
+		$template = apply_filters( 'castor/templates/layout', $template );
+
+		if( empty( locate_template( $template ))) {
+			$template = 'templates/layouts/default.php';
+		}
+
 		return $this->get( $template, false );
 	}
 

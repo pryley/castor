@@ -30,6 +30,11 @@ class Development
 		return defined( 'DEV' ) && !!DEV && WP_ENV == 'development';
 	}
 
+	public function isProduction()
+	{
+		return WP_ENV == 'production';
+	}
+
 	public function print( $value )
 	{
 		$args = func_num_args();

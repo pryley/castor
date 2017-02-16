@@ -25,6 +25,36 @@ class Theme
 	}
 
 	/**
+	 * @param string $asset
+	 *
+	 * @return string
+	 */
+	public function imagePath( $asset )
+	{
+		return $this->paths( 'dir.stylesheet' ) . 'assets/img/' . $asset;
+	}
+
+	/**
+	 * @param string $asset
+	 *
+	 * @return string
+	 */
+	public function imageUri( $asset )
+	{
+		return $this->paths( 'uri.stylesheet' ) . 'assets/img/' . $asset;
+	}
+
+	public function pageTitle()
+	{
+		foreach( ['is_404', 'is_archive', 'is_home', 'is_search'] as $bool ) {
+			if( !$bool() )continue;
+			$method = sprintf( 'get%sTitle', ucfirst( str_replace( 'is_', '', $bool )));
+			return $this->$method();
+		}
+		return get_the_title();
+	}
+
+	/**
 	 * @param null|string $path
 	 *
 	 * @return array|string
@@ -46,5 +76,27 @@ class Theme
 		return array_key_exists( $path, $paths )
 			? trailingslashit( $paths[$path] )
 			: '';
+	}
+
+	protected function get404Title()
+	{
+		return __( 'Not Found', 'castor' );
+	}
+
+	protected function getArchiveTitle()
+	{
+		return get_the_archive_title();
+	}
+
+	protected function getHomeTitle()
+	{
+		return ( $home = get_option( 'page_for_posts', true ))
+			? get_the_title( $home )
+			: __( 'Latest Posts', 'castor' );
+	}
+
+	protected function getSearchTitle()
+	{
+		return sprintf( __( 'Search Results for %s', 'castor' ), get_search_query() );
 	}
 }
