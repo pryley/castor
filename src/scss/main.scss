@@ -8,7 +8,3 @@ $features: (
 );
 
 @import "../../node_modules/nolie.css/src/nolie";
-
-pre {
-	@include line-height(1);
-}
