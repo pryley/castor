@@ -20,7 +20,7 @@ class Controller
 		add_theme_support( 'soil-nice-search' );
 		add_theme_support( 'soil-relative-urls' );
 		add_theme_support( 'title-tag' );
-		add_editor_style( Theme::assetUri( 'css/main.css' ));
+		add_editor_style( Theme::assetUri( 'css/editor.css' ));
 		load_theme_textdomain( 'castor', get_template_directory() . '/languages' );
 		register_nav_menus([
 			'primary_navigation' => __( 'Primary Navigation', 'castor' ),

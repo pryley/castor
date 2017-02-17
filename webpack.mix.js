@@ -1,6 +1,7 @@
 let mix = require( 'laravel-mix' );
 
 mix.js( 'src/js/main.js', '../assets/js/' );
+mix.sass( 'src/scss/editor.scss', '../assets/css/' );
 mix.sass( 'src/scss/main.scss', '../assets/css/' );
 // mix.minify( 'assets/js/main.js' );
 // mix.minify( 'assets/css/main.css' );
