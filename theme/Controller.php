@@ -22,7 +22,7 @@ class Controller
 		add_theme_support( 'soil-relative-urls' );
 		add_theme_support( 'title-tag' );
 		add_editor_style( Theme::assetUri( 'css/editor.css' ));
-		load_theme_textdomain( 'castor', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'castor', Theme::paths( 'dir.template' ) . '/languages' );
 		register_nav_menu( 'main_menu', __( 'Main Menu', 'castor' ));
 	}
 
