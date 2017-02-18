@@ -1,6 +1,6 @@
 <?php Development::storeTemplatePath( __FILE__ ); ?>
 
 <header role="banner">
-	<?php get_template_part( 'sections/navigation' ); ?>
-	<?php get_template_part( 'sections/hero' ); ?>
+	<?php Template::load( 'sections/navigation' ); ?>
+	<?php Template::load( 'sections/hero' ); ?>
 </header>

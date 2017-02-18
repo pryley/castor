@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?= get_bloginfo( 'name' ); ?></title>
 	<link rel="alternate" type="application/rss+xml" title="<?= get_bloginfo( 'name' ); ?> Feed" href="<?= esc_url( get_feed_link() ); ?>">
-	<?php get_template_part( 'partials/head-seo' ); ?>
-	<?php get_template_part( 'partials/head-favicon' ); ?>
+	<?php Template::load( 'partials/head-seo' ); ?>
+	<?php Template::load( 'partials/head-favicon' ); ?>
 	<?php wp_head(); ?>
 </head>

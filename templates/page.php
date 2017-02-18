@@ -2,6 +2,6 @@
 
 while( have_posts() ) :
 	the_post();
-	get_template_part( 'partials/title', 'page' );
-	get_template_part( 'sections/content-page' );
+	Template::load( 'partials/title', 'page' );
+	Template::load( 'sections/content-page' );
 endwhile;

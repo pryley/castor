@@ -1,20 +1,20 @@
 <!doctype html>
 <html class="no-js" <?php language_attributes(); ?>>
-<?php get_template_part( 'partials/head' ); ?>
+<?php Template::load( 'partials/head' ); ?>
 <body <?php body_class( Development::className() ); ?>>
 
-	<?php get_template_part( 'partials/outdated' ); ?>
-	<?php get_template_part( 'sections/header' ); ?>
+	<?php Template::load( 'partials/outdated' ); ?>
+	<?php Template::load( 'sections/header' ); ?>
 
 	<div class="wrapper" role="document">
 		<main class="main" role="main">
 			<?php Template::main(); ?>
 		</main>
-		<?php get_template_part( 'sections/sidebar' ); ?>
+		<?php Template::load( 'sections/sidebar' ); ?>
 	</div>
 
-	<?php get_template_part( 'sections/footer' ); ?>
-	<?php get_template_part( 'partials/analytics' ); ?>
+	<?php Template::load( 'sections/footer' ); ?>
+	<?php Template::load( 'partials/analytics' ); ?>
 
 	<?php Development::printTemplatePaths(); ?>
 	<?php wp_footer(); ?>

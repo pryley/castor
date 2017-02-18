@@ -27,7 +27,6 @@ final class Application extends Container
 		add_action( 'widgets_init',           [$controller, 'registerSidebars'] );
 
 		// Filter hooks
-		add_filter( 'template',               [$controller, 'filterTemplateDirectoryLocation'] );
 		add_filter( 'template_include',       [$controller, 'filterTemplate'] );
 
 		foreach( $this->getTemplateTypes() as $type ) {
@@ -44,7 +43,10 @@ final class Application extends Container
 			'Development' => Facades\Development::class,
 			'Template'    => Facades\Template::class,
 			'Theme'       => Facades\Theme::class,
+			'Utility'     => Facades\Utility::class,
 		];
+
+		$aliases = apply_filters( 'castor/register/aliases', $aliases );
 
 		AliasLoader::getInstance( $aliases )->register();
 	}

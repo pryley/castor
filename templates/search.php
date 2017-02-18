@@ -1,10 +1,10 @@
 <?php Development::storeTemplatePath( __FILE__ );
 
-get_template_part( 'partials/title', 'search' );
+Template::load( 'partials/title', 'search' );
 
 while( have_posts() ) :
 	the_post();
-	get_template_part( 'sections/content', 'search' );
+	Template::load( 'sections/content', 'search' );
 endwhile;
 
 if( !have_posts() ) :
@@ -12,4 +12,4 @@ if( !have_posts() ) :
 	get_search_form( true );
 endif;
 
-get_template_part( 'partials/pagination' );
+Template::load( 'partials/pagination' );

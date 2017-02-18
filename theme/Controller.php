@@ -5,6 +5,7 @@ namespace GeminiLabs\Castor;
 use GeminiLabs\Castor\Facades\Development;
 use GeminiLabs\Castor\Facades\Template;
 use GeminiLabs\Castor\Facades\Theme;
+use GeminiLabs\Castor\Facades\Utility;
 use WP_Customize_Manager;
 
 class Controller
@@ -22,10 +23,31 @@ class Controller
 		add_theme_support( 'title-tag' );
 		add_editor_style( Theme::assetUri( 'css/editor.css' ));
 		load_theme_textdomain( 'castor', get_template_directory() . '/languages' );
-		register_nav_menus([
-			'primary_navigation' => __( 'Primary Navigation', 'castor' ),
-			'footer_navigation'  => __( 'Footer Navigation', 'castor' ),
-		]);
+		register_nav_menu( 'main_menu', __( 'Main Menu', 'castor' ));
+	}
+
+	/**
+	 * @return string
+	 * @filter template_include
+	 */
+	public function filterTemplate( $template )
+	{
+		if( is_string( $template )) {
+			$template = Template::setLayout( $template );
+			Development::storeTemplatePath( $template );
+		}
+		return $template;
+	}
+
+	/**
+	 * @return array
+	 * @filter {$type}_template_hierarchy
+	 */
+	public function filterTemplateHierarchy( array $templates )
+	{
+		return array_map( function( $template ) {
+			return Utility::startWith( 'templates/', $template );
+		}, $templates );
 	}
 
 	public function registerAssets()
@@ -55,8 +77,8 @@ class Controller
 		$defaults = [
 			'before_widget' => '<section class="widget %1$s %2$s">',
 			'after_widget'  => '</section>',
-			'before_title'  => '<h3>',
-			'after_title'   => '</h3>',
+			'before_title'  => '<h4>',
+			'after_title'   => '</h4>',
 		];
 
 		register_sidebar([
@@ -68,27 +90,5 @@ class Controller
 			'id'   => 'sidebar-footer',
 			'name' => __( 'Footer Sidebar', 'castor' ),
 		] + $defaults );
-	}
-
-	public function filterTemplate( $template )
-	{
-		if( !is_string( $template )) {
-			return $template; // Check for other filters returning null
-		}
-		$template = Template::setLayout( $template );
-		Development::storeTemplatePath( $template );
-		return $template;
-	}
-
-	public function filterTemplateDirectoryLocation( $stylesheet )
-	{
-		return dirname( $stylesheet );
-	}
-
-	public function filterTemplateHierarchy( $templates )
-	{
-		return array_map( function( $template ) {
-			return 'templates/' . str_replace( 'templates/', '', $template );
-		}, $templates );
 	}
 }

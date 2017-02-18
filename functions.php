@@ -26,10 +26,4 @@ if( is_customize_preview() && filter_input( INPUT_GET, 'theme' )) {
 	);
 }
 
-if( basename( $stylesheet = get_option( 'template' )) !== 'templates' ) {
-	update_option( 'template', "{$stylesheet}/templates" );
-	wp_redirect( $_SERVER['REQUEST_URI'] );
-	exit;
-}
-
 \GeminiLabs\Castor\Application::getInstance()->init();

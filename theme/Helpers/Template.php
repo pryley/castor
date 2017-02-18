@@ -2,33 +2,54 @@
 
 namespace GeminiLabs\Castor\Helpers;
 
+use GeminiLabs\Castor\Helpers\Utility;
+
 class Template
 {
+	public $util;
+
+	public function __construct( Utility $util )
+	{
+		$this->util = $util;
+	}
+
 	/**
 	 * @var string
 	 */
 	public $template;
 
 	/**
-	 * @param string $template
-	 * @param bool   $loadTemplate
+	 * @param string $slug
+	 * @param string $name
 	 *
-	 * @return string|void
+	 * @return string
 	 */
-	public function get( $template, $loadTemplate = true )
+	public function get( $slug, $name = '' )
 	{
-		$base = basename( $this->template, '.php' );
-		$slug = basename( $template, '.php' );
-		$templates = [$template];
+		$template  = $this->util->startWith( 'templates/', $slug );
+		$templates = ["{$template}.php"];
 
-		if( $base != 'index' ) {
-			$str = substr( $template, 0, -4 );
-			array_unshift( $templates, sprintf( '%s-%s.php', $str, $base ));
+		if( 'index' != basename( $this->template, '.php' )) {
+			array_unshift( $templates, "{$template}-{$name}.php" );
 		}
 
-		$templates = apply_filters( "castor/templates/{$slug}", $templates );
+		$templates = apply_filters( "castor/templates/{$slug}", $templates, $name );
 
-		return locate_template( $templates, $loadTemplate );
+		return locate_template( $templates );
+	}
+
+	/**
+	 * @param string $slug
+	 * @param string $name
+	 *
+	 * @return void
+	 */
+	public function load( $slug, $name = '' )
+	{
+		$template = $this->get( $slug, $name );
+		if( !empty( $template )) {
+			load_template( $template, false );
+		}
 	}
 
 	/**
@@ -36,7 +57,7 @@ class Template
 	 */
 	public function main()
 	{
-		$this->get( $this->template );
+		$this->load( $this->template );
 	}
 
 	/**
@@ -46,22 +67,7 @@ class Template
 	 */
 	public function setLayout( $template )
 	{
-		$this->template = strstr( $template, 'templates/' );
-
-		$template = apply_filters( 'castor/templates/layout', $template );
-
-		if( empty( locate_template( $template ))) {
-			$template = 'templates/layouts/default.php';
-		}
-
-		return $this->get( $template, false );
-	}
-
-	/**
-	 * @return void
-	 */
-	public function sidebar()
-	{
-		$this->get( 'templates/sidebar.php' );
+		$this->template = $this->util->trimRight( strstr( $template, 'templates/' ), '.php' );
+		return $this->get( apply_filters( 'castor/templates/layout', 'layouts/default' ));
 	}
 }

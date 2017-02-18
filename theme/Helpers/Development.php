@@ -75,7 +75,8 @@ class Development
 	public function storeTemplatePath( $template )
 	{
 		if( is_string( $template )) {
-			$this->templatePaths[] = strstr( $template, 'templates/' );
+			$themeName = basename( strstr( $template, '/templates/', true ));
+			$this->templatePaths[] = $themeName . strstr( $template, '/templates/' );
 		}
 	}
 }
