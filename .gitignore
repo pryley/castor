@@ -4,3 +4,4 @@ assets
 languages
 node_modules
 vendor
+!assets/favicon/*
