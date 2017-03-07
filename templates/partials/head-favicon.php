@@ -5,4 +5,6 @@
 <link href="<?= Theme::imageUri( 'favicon/favicon-16x16.png' ); ?>" rel="icon" type="image/png" sizes="16x16">
 <link href="<?= Theme::imageUri( 'favicon/manifest.json' ); ?>" rel="manifest">
 <link href="<?= Theme::imageUri( 'favicon/safari-pinned-tab.svg' ); ?>" rel="mask-icon" color="#5bbad5">
+<link href="<?= Theme::imageUri( 'favicon/favicon.ico' ); ?>" rel="shortcut icon">
+<meta name="msapplication-config" content="<?= Theme::imageUri( 'favicon/browserconfig.xml' ); ?>">
 <meta name="theme-color" content="#263238">
