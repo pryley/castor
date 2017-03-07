@@ -1,33 +1,29 @@
 {
   "name": "geminilabs/castor",
-  "type": "wordpress-theme",
   "license": "MIT",
   "description": "Parent theme for Dioscuri",
   "homepage": "https://github.com/geminilabs/castor",
+  "keywords": ["wordpress", "dioscuri", "castor", "theme"],
   "authors": [
     {
       "name": "Paul Ryley",
-      "email": "paul@geminilabs.io",
-      "homepage": "https://github.com/geminilabs"
+      "email": "paul@geminilabs.io"
     }
   ],
-  "keywords": [
-    "wordpress",
-    "theme"
-  ],
   "support": {
-    "issues": "https://github.com/geminilabs/castor/issues"
+    "issues": "https://github.com/geminilabs/castor/issues",
+    "source": "https://github.com/geminilabs/castor"
   },
-  "config": {
-    "preferred-install": "dist"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "archive": {
     "exclude": []
   },
   "require": {
     "php": ">=5.6.4",
-    "composer/installers": "^1.2.0"
-  }
+    "geminilabs/castor-framework": "^1.0.0"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
