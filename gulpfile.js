@@ -11,7 +11,7 @@ var gulp            = require('gulp');
 var gulpif          = require('gulp-if');
 var imagemin        = require('gulp-imagemin');
 var jshint          = require('gulp-jshint');
-var streams         = require('merge-stream')();
+var mergeStream     = require('merge-stream');
 var moduleImporter  = require('sass-module-importer');
 var plumber         = require('gulp-plumber');
 var potomo          = require('gulp-potomo');
@@ -43,6 +43,7 @@ gulp.task('jshint', function()
 /* JS Task
  -------------------------------------------------- */
 gulp.task('js', function() {
+	var streams = mergeStream();
 	for(var key in config.scripts) {
 		streams.add(gulp.src(config.scripts[key]).pipe(concat(key)));
 	}
