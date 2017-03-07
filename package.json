@@ -1,13 +1,39 @@
 {
   "private": true,
-  "scripts": {
-    "dev": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js",
-    "watch": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=webpack.config.js",
-    "hot": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=webpack.config.js",
-    "production": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js"
+  "dependencies": {
+    "animation-frame": "^0.3.0",
+    "float-labels.js": "^2.0.1",
+    "javascript-flex-images": "Pixabay/JavaScript-flexImages",
+    "nolie.css": "geminilabs/nolie.css#develop"
   },
   "devDependencies": {
-    "laravel-mix": "^0.8.1",
-    "nolie.css": "geminilabs/nolie.css#develop"
+    "babel-preset-env": "^1.2.1",
+    "browser-sync": "^2.18.6",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-bump": "^2.4.0",
+    "gulp-cache": "^0.4.6",
+    "gulp-checktextdomain": "^1.1.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-plumber": "^1.0.0",
+    "gulp-potomo": "^1.0.1",
+    "gulp-pseudo-i18n": "^0.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sort": "^2.0.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-wp-pot": "^2.0.4",
+    "jshint": "^2.9.3",
+    "jshint-stylish": "^2.2.1",
+    "merge-stream": "^1.0.1",
+    "run-sequence": "^1.2.2",
+    "sass-module-importer": "^1.4.0",
+    "yamljs": "^0.2.3",
+    "yargs": "^7.0.1"
   }
 }

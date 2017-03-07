@@ -4,4 +4,4 @@
 /*.json  export-ignore
 /*.lock  export-ignore
 /*.md    export-ignore
-/src     export-ignore
+/+       export-ignore

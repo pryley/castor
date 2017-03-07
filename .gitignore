@@ -1,4 +1,6 @@
 *.log
 .DS_Store
+assets
+languages
 node_modules
 vendor
