@@ -11,3 +11,15 @@ Minimum theme requirements:
 
 * PHP 5.6
 * WordPress 4.7.0
+
+## Installation
+
+This theme is meant to be initialised by [Dioscuri](https://github.com/geminilabs/dioscuri).
+
+However, Castor can also be initialised on its own by running the following commands (make sure you first have `composer` and `yarn` installed, on macOS this can be done using [Homebrew](https://brew.sh/)):
+
+```
+git clone https://github.com/geminilabs/castor.git castor
+rm -rf castor/.git
+composer install -d castor
+```
