@@ -1,5 +1,3 @@
-<?php Development::storeTemplatePath( __FILE__ );
-
 if( post_password_required() )return; ?>
 
 <section id="comments" class="comments">

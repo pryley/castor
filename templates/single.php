@@ -1,4 +1,4 @@
-<?php Development::storeTemplatePath( __FILE__ );
+<?php
 
 while( have_posts() ) :
 	the_post();

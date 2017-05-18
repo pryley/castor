@@ -1,4 +1,4 @@
-<?php Development::storeTemplatePath( __FILE__ );
+<?php
 
 if( !have_posts() ) :
 	Template::load( 'partials/title', '404' );

@@ -1,4 +1,4 @@
-<?php Development::storeTemplatePath( __FILE__ );
+<?php
 
 Template::load( 'partials/title' );
 

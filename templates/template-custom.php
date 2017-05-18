@@ -1,4 +1,1 @@
-<?php Development::storeTemplatePath( __FILE__ );
-/**
- * Template Name: Custom Template
- */
+<?php /* Template Name: Custom Template */

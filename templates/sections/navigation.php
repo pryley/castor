@@ -1,5 +1,3 @@
-<?php Development::storeTemplatePath( __FILE__ ); ?>
-
 <div class="navigation">
 	<div class="container">
 
@@ -7,14 +5,14 @@
 
 	<?php if( has_nav_menu( 'main_menu' )) : ?>
 
-		<div class="nav-toggle">
-			<div id="nav-toggle"><?= __( 'Menu', 'castor' ); ?></div>
-		</div>
+		<a href="#" class="toggle-main-menu" data-toggle="<?= __( 'Close', 'castor' ); ?>">
+			<span><?= __( 'Menu', 'castor' ); ?></span>
+		</a>
 
-		<nav class="nav-primary nav-collapse" role="navigation"><?php
+		<nav id="main-menu" role="navigation"><?php
 			wp_nav_menu( [
 				'theme_location' => 'main_menu',
-				'menu_class'     => 'nav horiz'
+				'menu_class' => 'menu-primary'
 			]);
 		?></nav>
 

@@ -1,7 +1,5 @@
-<?php Development::storeTemplatePath( __FILE__ );
+<?php if( !Theme::displaySidebar() )return; ?>
 
-if( !Theme::displaySidebar() )return; ?>
-
-<aside class="sidebar">
+<aside class="page-sidebar">
 	<?php dynamic_sidebar( 'sidebar-primary' ); ?>
 </aside>

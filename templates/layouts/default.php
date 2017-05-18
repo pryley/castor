@@ -3,7 +3,7 @@
 <?php Template::load( 'partials/head' ); ?>
 <body <?php body_class( Development::className() ); ?>>
 
-	<?php Template::load( 'partials/outdated' ); ?>
+	<?php Template::load( 'sections/outdated' ); ?>
 	<?php Template::load( 'sections/header' ); ?>
 
 	<div class="wrapper" role="document">
@@ -14,10 +14,8 @@
 	</div>
 
 	<?php Template::load( 'sections/footer' ); ?>
-	<?php Template::load( 'partials/analytics' ); ?>
+	<?php Template::load( 'sections/debug' ); ?>
 
-	<?php Development::printTemplatePaths(); ?>
 	<?php wp_footer(); ?>
-
 </body>
 </html>
