@@ -62,16 +62,12 @@ gulp.task('css', function() {
 		sass({
 			importer: moduleImporter(),
 			outputStyle: 'expanded',
-		}),
+		}).on('error', sass.logError),
 		autoprefixer('last 2 versions'),
 		gulpif(args.production, cssnano({
 			minifyFontValues: false,
 			discardComments: { removeAll: true }
 		})),
-		rename( function( path ) {
-			path.dirname = path.dirname.replace( 'src', 'dist' );
-			path.dirname = path.dirname.replace( 'scss', 'css' );
-		}),
 		gulp.dest(config.dest.css),
 		browserSync.stream(),
 	]);
