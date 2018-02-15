@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="no-js" <?php language_attributes(); ?>>
-<?php Template::load( 'partials/head' ); ?>
+<?php Template::load( 'sections/head' ); ?>
 <body <?php body_class( Development::className() ); ?>>
 
 	<?php Template::load( 'sections/outdated' ); ?>
