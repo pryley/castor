@@ -1,3 +1,3 @@
 <div class="article-title">
-	<h1><?= Theme::pageTitle(); ?></h1>
+	<h2><?= Theme::pageTitle(); ?></h2>
 </div>
