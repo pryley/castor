@@ -44,7 +44,7 @@ gulp.task('modernizr', function(done) {
  -------------------------------------------------- */
 gulp.task('jshint', function()
 {
-	pump([
+	return pump([
 		gulp.src(config.watch.js),
 		jshint(),
 		jshint.reporter('jshint-stylish'),
@@ -59,9 +59,9 @@ gulp.task('js', function() {
 	for(var key in config.scripts) {
 		streams.add(gulp.src(config.scripts[key]).pipe(concat(key)));
 	}
-	pump([
+	return pump([
 		streams,
-		// babel({presets: ["env"]})
+		// babel({presets: ["env"]}),
 		gulpif(args.production, uglify({
 			output: {comments: 'some'},
 		})),
@@ -73,7 +73,7 @@ gulp.task('js', function() {
 /* CSS Task
  -------------------------------------------------- */
 gulp.task('css', function() {
-	pump([
+	return pump([
 		gulp.src(config.watch.scss),
 		sass({
 			importer: moduleImporter(),
@@ -92,7 +92,7 @@ gulp.task('css', function() {
 /* Images Task
  -------------------------------------------------- */
 gulp.task('images', function() {
-	pump([
+	return pump([
 		gulp.src(config.watch.img),
 		cache(imagemin({
 			optimizationLevel: 3,
@@ -110,7 +110,7 @@ gulp.task('languages', function() {
 });
 
 gulp.task('po', function() {
-	pump([
+	return pump([
 		gulp.src(config.watch.php),
 		checktextdomain({
 			text_domain: config.language.domain,
@@ -146,7 +146,7 @@ gulp.task('po', function() {
 });
 
 gulp.task('mo', function() {
-	pump([
+	return pump([
 		gulp.src(config.dest.lang + '*.po'),
 		potomo(),
 		gulp.dest(config.dest.lang),
@@ -156,7 +156,7 @@ gulp.task('mo', function() {
 /* Version Task
  -------------------------------------------------- */
 gulp.task('bump', function() {
-	pump([
+	return pump([
 		gulp.src('style.css'),
 		gulpif(args.patch || Object.keys(args).length < 3, bump({type: 'patch'})),
 		gulpif(args.minor, bump({type: 'minor'})),

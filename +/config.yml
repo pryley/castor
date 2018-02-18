@@ -1,12 +1,12 @@
 scripts:
   main.js:
-    - node_modules/animation-frame/AnimationFrame.js
-    - node_modules/float-labels.js/src/float-labels.js
-    - node_modules/javascript-flex-images/flex-images.js
-    - +/js/helpers.js
+    # - node_modules/animation-frame/AnimationFrame.js
+    # - node_modules/float-labels.js/src/float-labels.js
+    # - node_modules/javascript-flex-images/flex-images.js
+    # - +/js/helpers.js
     - +/js/main.js
-  customizer.js:
-    - +/js/customizer.js
+  # customizer.js:
+  #   - +/js/customizer.js
 modernizr:
   options:
     - setClasses
@@ -26,7 +26,7 @@ dest:
   img: assets/img/
   lang: languages/
 browsersync:
-  proxy: wordpress.dev
+  proxy: wordpress.test
 language:
   domain: castor
   translator: Paul Ryley <paul@geminilabs.io>
