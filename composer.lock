@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3b46e0812dd7f0f635b756a5718ac60",
+    "content-hash": "c20a678d865f5673fa9bcfd0d395016f",
     "packages": [
         {
             "name": "geminilabs/castor-framework",
-            "version": "v1.1.3",
+            "version": "v1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geminilabs/castor-framework.git",
-                "reference": "6ba11dabef9f8571a3837fe7905a603a10bf22a8"
+                "reference": "46c5a88fccffb5ba83046f3daf16b63ea4700b08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geminilabs/castor-framework/zipball/6ba11dabef9f8571a3837fe7905a603a10bf22a8",
-                "reference": "6ba11dabef9f8571a3837fe7905a603a10bf22a8",
+                "url": "https://api.github.com/repos/geminilabs/castor-framework/zipball/46c5a88fccffb5ba83046f3daf16b63ea4700b08",
+                "reference": "46c5a88fccffb5ba83046f3daf16b63ea4700b08",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 "framework",
                 "wordpress"
             ],
-            "time": "2017-08-10T17:07:27+00:00"
+            "time": "2018-02-16T01:06:53+00:00"
         }
     ],
     "packages-dev": [],
