@@ -7,6 +7,12 @@ scripts:
     - +/js/main.js
   customizer.js:
     - +/js/customizer.js
+modernizr:
+  options:
+    - setClasses
+  feature-detects:
+    - css/animations
+    - css/transforms
 watch:
   js: +/js/**/*.js
   scss: +/scss/**/*.scss

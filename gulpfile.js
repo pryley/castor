@@ -1,16 +1,19 @@
 var args            = require('yargs').argv;
 var autoprefixer    = require('gulp-autoprefixer');
+var babel           = require('gulp-babel');
 var browserSync     = require('browser-sync').create();
 var bump            = require('gulp-bump');
 var cache           = require('gulp-cache');
 var checktextdomain = require('gulp-checktextdomain');
 var concat          = require('gulp-concat');
 var cssnano         = require('gulp-cssnano');
+var file            = require('gulp-file');
 var gulp            = require('gulp');
 var gulpif          = require('gulp-if');
 var imagemin        = require('gulp-imagemin');
 var jshint          = require('gulp-jshint');
 var mergeStream     = require('merge-stream');
+var modernizr       = require('modernizr');
 var moduleImporter  = require('sass-module-importer');
 var potomo          = require('gulp-potomo');
 var pseudo          = require('gulp-pseudo-i18n');
@@ -25,6 +28,18 @@ var yaml            = require('yamljs');
 
 var config = yaml.load('+/config.yml');
 
+/* Modernizr Task
+ -------------------------------------------------- */
+gulp.task('modernizr', function(done) {
+	modernizr.build(config.modernizr, function(code) {
+		pump([
+			file('modernizr.js', code, {src: true}),
+			uglify(),
+			gulp.dest(config.dest.js),
+		]);
+	});
+});
+
 /* JSHint Task
  -------------------------------------------------- */
 gulp.task('jshint', function()
@@ -32,8 +47,8 @@ gulp.task('jshint', function()
 	pump([
 		gulp.src(config.watch.js),
 		jshint(),
-		jshint.reporter( 'jshint-stylish' ),
-		jshint.reporter( 'fail' ),
+		jshint.reporter('jshint-stylish'),
+		jshint.reporter('fail'),
 	]);
 });
 
@@ -46,8 +61,9 @@ gulp.task('js', function() {
 	}
 	pump([
 		streams,
+		// babel({presets: ["env"]})
 		gulpif(args.production, uglify({
-			output: { comments: 'some' },
+			output: {comments: 'some'},
 		})),
 		gulp.dest(config.dest.js),
 		browserSync.stream(),
@@ -142,15 +158,9 @@ gulp.task('mo', function() {
 gulp.task('bump', function() {
 	pump([
 		gulp.src('style.css'),
-		gulpif(args.patch || Object.keys(args).length < 3, bump({
-			type: 'patch'
-		})),
-		gulpif(args.minor, bump({
-			type: 'minor'
-		})),
-		gulpif(args.major, bump({
-			type: 'major'
-		})),
+		gulpif(args.patch || Object.keys(args).length < 3, bump({type: 'patch'})),
+		gulpif(args.minor, bump({type: 'minor'})),
+		gulpif(args.major, bump({type: 'major'})),
 		gulp.dest('.'),
 	]);
 });
@@ -192,5 +202,5 @@ gulp.task('default', function() {
 /* Build Task
  -------------------------------------------------- */
 gulp.task('build', function() {
-	gulp.start('css', 'jshint', 'js', 'images', 'languages')
+	gulp.start('css', 'jshint', 'js', 'modernizr', 'images', 'languages')
 });

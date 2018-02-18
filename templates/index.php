@@ -1,15 +1,15 @@
 <?php
 
-Template::load( 'partials/title' );
+Template::load( 'partials/title', 'archive' );
 
 while( have_posts() ) :
 	the_post();
-	Template::load( 'sections/content', get_post_type() !== 'post' ? get_post_type() : get_post_format() );
+	Template::load( 'partials/entry-archive', get_post_type() );
 endwhile;
 
+Template::load( 'partials/pagination', 'archive' );
+
 if( !have_posts() ) :
-	printf( '<div class="alert alert-warning">%s</div>', __( 'Sorry, no results were found.', 'castor' ));
+	echo wpautop( get_post_type_object( get_query_var( 'post_type' ))->labels->not_found );
 	get_search_form( true );
 endif;
-
-Template::load( 'partials/pagination' );

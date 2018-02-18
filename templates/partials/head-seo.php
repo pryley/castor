@@ -1,8 +1,8 @@
 <?php
-	$description = get_bloginfo( 'description' );
-	$image = Theme::imageUri( 'share.jpg' );
-	$title = get_bloginfo( 'name' );
-	$url = esc_url( home_url() );
+$description = get_bloginfo( 'description' );
+$image = Theme::imageUri( 'share.jpg' );
+$title = get_bloginfo( 'name' );
+$url = esc_url( home_url() );
 ?>
 <!-- SEO -->
 <meta name="description" content="<?= $description; ?>">

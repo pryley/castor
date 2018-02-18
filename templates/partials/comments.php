@@ -1,4 +1,4 @@
-if( post_password_required() )return; ?>
+<?php if( post_password_required() )return; ?>
 
 <section id="comments" class="comments">
 <?php if( have_comments() ) : ?>
@@ -30,9 +30,7 @@ if( post_password_required() )return; ?>
 <?php endif; ?>
 
 <?php if( !comments_open() && get_comments_number() != '0' && post_type_supports( get_post_type(), 'comments' )) : ?>
-	<div class="alert alert-warning">
-		<?= __( 'Comments are closed.', 'castor' ); ?>
-	</div>
+	<?= wpautop( __( 'Comments are closed.', 'castor' )); ?>
 <?php endif; ?>
 
 <?php comment_form(); ?>
