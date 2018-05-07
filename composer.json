@@ -19,11 +19,11 @@
   },
   "require": {
     "php": ">=5.6.4",
-    "geminilabs/castor-framework": "^1.1.7"
+    "geminilabs/castor-framework": "^1.1.9"
   },
   "scripts": {
     "post-install-cmd": [
-      "yarn; gulp build --silent"
+      "npm install --silent; gulp build --silent"
     ]
   },
   "config": {

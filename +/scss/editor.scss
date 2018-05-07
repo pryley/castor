@@ -2,7 +2,7 @@ $features: (
 	styled: false,
 );
 
-@import "node_modules/nolie.css/src/nolie";
+@import "node_modules/nolie/src/nolie";
 
 body {
 	@include margin(1 0.5);
