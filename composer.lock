@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c99d361cc9e95094f7636643b01081cd",
+    "content-hash": "8d5fdef5e6c2ceb73306eecac50f35c3",
     "packages": [
         {
             "name": "geminilabs/castor-framework",
@@ -57,7 +57,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1.0"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }

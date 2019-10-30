@@ -1,3 +1,3 @@
 <?php
 
-Template::load( 'page' );
+Template::load('page');

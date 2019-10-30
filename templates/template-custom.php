@@ -1,3 +1,5 @@
-<?php /* Template Name: Custom Template */
+<?php
 
-Template::load( 'page' );
+/* Template Name: Custom Template */
+
+Template::load('page');

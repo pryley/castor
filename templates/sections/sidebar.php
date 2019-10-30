@@ -1,5 +1,7 @@
-<?php if( !Theme::displaySidebar() )return; ?>
+<?php if (!Theme::displaySidebar()) {
+    return;
+} ?>
 
 <aside class="sidebar">
-	<?php dynamic_sidebar( 'sidebar-primary' ); ?>
+	<?php dynamic_sidebar('sidebar-primary'); ?>
 </aside>

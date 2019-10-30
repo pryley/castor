@@ -1,3 +1,3 @@
 <?php
 
-Template::load( 'partials/article', '404' );
+Template::load('partials/article', '404');
