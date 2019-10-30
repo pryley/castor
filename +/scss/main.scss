@@ -1,10 +1,13 @@
-$features: (
-	debug: true,
-	// styled: true,
-	// output: false,
-	// buttons: true,
-	// icons: true,
-	// tables: false,
-);
+$debug: true;
 
-@import "node_modules/nolie/src/nolie";
+@tailwind base;
+@tailwind components;
+@tailwind icons;
+
+@import 'partials/base';
+@import 'partials/fonts';
+@import 'partials/layout';
+@import 'partials/utilities';
+@import 'partials/debug';
+
+@tailwind utilities;

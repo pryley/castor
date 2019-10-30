@@ -1,0 +1,248 @@
+@function debug-color($value, $opacity: 1) {
+    $colors: (
+        navy: #001f3f,
+        blue: #0074d9,
+        aqua: #7fdbff,
+        teal: #39cccc,
+        olive: #3d9970,
+        green: #2ecc40,
+        lime: #01ff70,
+        yellow: #ffdc00,
+        orange: #ff851b,
+        red: #ff4136,
+        fuchsia: #f012be,
+        purple: #b10dc9,
+        maroon: #85144b,
+        white: #fff,
+        silver: #ddd,
+        gray: #aaa,
+        black: #111,
+    );
+    @if type-of($value) == number {
+        @return rgba(nth(nth($colors, $value), 2), $opacity);
+    }
+    @return rgba(map-get($colors, $value), $opacity);
+}
+
+@mixin debug-baseline($color: #4affff, $line-height: 6px) {
+    @if $debug {
+        background-image: linear-gradient(
+            to bottom,
+            rgba($color, 0.3) 1px,
+            transparent 1px
+        );
+        background-position: left top;
+        background-repeat: repeat;
+        background-size: 100% $line-height;
+    }
+}
+
+@mixin debug-media($options: ()) {
+    $defaults: (
+        breakpoints: (
+            xs: 480px,
+            sm: 640px,
+            md: 768px,
+            lg: 1024px,
+            xl: 1280px,
+        ),
+        fontsize: 10px,
+        height: 12px,
+        left: 0,
+        lineheight: 12px,
+        right: auto,
+        width: auto,
+        zindex: 10000,
+    );
+    $options: map-merge($defaults, $options);
+    $breakpoints: map-get($options, breakpoints);
+    @if $debug {
+        $i: 2;
+        body.debug::before {
+            background-color: debug-color($i);
+            color: debug-color(black);
+            content: 'base';
+            font-family: sans-serif;
+            font-size: map-get($options, fontsize);
+            height: map-get($options, height);
+            left: map-get($options, left);
+            line-height: map-get($options, lineheight);;
+            margin: 0 auto;
+            padding: 0 3px;
+            position: fixed !important;
+            right: map-get($options, right);
+            text-align: center;
+            top: 0;
+            width: map-get($options, width);
+            z-index: map-get($options, zindex);
+            @each $key, $value in $breakpoints {
+                $i: $i+1;
+                @media (min-width: #{$value}) {
+                    content: "#{$key}";
+                    background-color: debug-color($i);
+                }
+            }
+        }
+    }
+}
+
+@mixin debug-grid($options: ()) {
+    $defaults: (
+        breakpoints: (
+            xs: 480px,
+            sm: 640px,
+            md: 768px,
+            lg: 1024px,
+            xl: 1280px,
+        ),
+        color: rgba(0,0,0,0.2),
+        columns: (
+            base: 4,
+            xs: 4,
+            sm: 4,
+            md: 8,
+            lg: 12,
+            xl: 12,
+        ),
+        gutters: (
+            base: 24px,
+            xs: 24px,
+            sm: 24px,
+            md: 24px,
+            lg: 24px,
+            xl: 24px,
+        ),
+        max-width: theme('maxWidth.7xl'),
+        media: null,
+        offsets: (
+            base: 24px,
+            xs: 24px,
+            sm: 24px,
+            md: 24px,
+            lg: 24px,
+            xl: 24px,
+        ),
+        selector: '.debug-grid',
+    );
+    $options: map-merge($defaults, $options);
+    $breakpoints: map-get($options, breakpoints);
+    $media: map-get($options, media);
+    @if $debug {
+        @include _debug-grid($options, base);
+        @for $i from 1 through length($media) {
+            $breakpoint: nth($media, $i);
+            @if map-has-key($breakpoints, $breakpoint) {
+                $media-min-width: map-get($breakpoints, $breakpoint);
+                @media (min-width: #{$media-min-width}) {
+                    @include _debug-grid($options, $breakpoint);
+                }
+            }
+        }
+    }
+}
+
+@mixin _debug-grid($options, $breakpoint) {
+    $columns: map-get(map-get($options, columns), $breakpoint);
+    $gutter: map-get(map-get($options, gutters), $breakpoint);
+    $offset: map-get(map-get($options, offsets), $breakpoint);
+    $grid-offset: ($offset * 2) - $gutter;
+    .debug #{map-get($options, selector)} {
+        position: fixed;
+        top: 0;
+        left: $offset;
+        right: 0;
+        width: calc(100vw - #{$grid-offset});
+        height: 100vh;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1000;
+        @media (min-width: #{map-get($options, max-width)}) {
+            left: $gutter;
+            width: calc(#{map-get($options, max-width)} - #{$grid-offset});
+            margin: 0 auto;
+        }
+        > div {
+            float: left;
+            height: 100vh;
+            pointer-events: none;
+            width: calc(#{100% / $columns} - #{$gutter});
+            background-color: map-get($options, color);
+            margin-right: $gutter;
+            &:nth-child(1n+#{$columns + 1}) {
+                display: none;
+            }
+            &:nth-child(-n+#{$columns}) {
+                display: block;
+            }
+        }
+    }
+}
+
+@include debug-media((
+    breakpoints: (
+        xs: theme('screens.xs'),
+        sm: theme('screens.sm'),
+        md: theme('screens.md'),
+        lg: theme('screens.lg'),
+        xl: theme('screens.xl'),
+        hd: theme('screens.hd'),
+    ),
+));
+
+@include debug-grid((
+    breakpoints: (
+        xs: theme('screens.xs'),
+        sm: theme('screens.sm'),
+        md: theme('screens.md'),
+        lg: theme('screens.lg'),
+        xl: theme('screens.xl'),
+        hd: theme('screens.hd'),
+    ),
+    color: rgba(255,255,0,0.1),
+    columns: (
+        base: 4,
+        xs: 4,
+        sm: 4,
+        md: 8,
+        lg: 12,
+        xl: 12,
+        hd: 12,
+    ),
+    gutters: (
+        base: 2rem,
+        xs: 2rem,
+        sm: 2rem,
+        md: 2rem,
+        lg: 2rem,
+        xl: 2rem,
+        hd: 2rem,
+    ),
+    media: sm md lg,
+    offsets: (
+        base: 2rem,
+        xs: 2rem,
+        sm: 4rem,
+        md: 3rem,
+        lg: 3rem,
+        xl: 3rem,
+        hd: 3rem,
+    ),
+));
+
+@if $debug {
+    .debug .col::before {
+        @apply .absolute;
+        @apply .block;
+        @apply .h-full;
+        @apply .pointer-events-none;
+        background-color: rgba(255,0,255,.1);
+        content: '';
+        width: calc(100% - theme('spacing.8'));
+    }
+    .debug .col:nth-of-type(odd)::before {
+        background-color: rgba(0,255,255,.1) !important;
+    }
+    // body {
+    //     @include debug-baseline;
+    // }
+}

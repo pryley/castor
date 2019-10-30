@@ -1,7 +1,8 @@
-*        text=auto
-/.*      export-ignore
-/*.js    export-ignore
-/*.json  export-ignore
-/*.lock  export-ignore
-/*.md    export-ignore
-/+       export-ignore
+*          text=auto
+/.*        export-ignore
+/*.js      export-ignore
+/*.md      export-ignore
+/*.yml     export-ignore
+/+         export-ignore
+/composer* export-ignore
+/package*  export-ignore

@@ -1,0 +1,13 @@
+bump:
+  - style.css
+images:
+  destination: assets/img/
+  watch: +/img/**/*
+language:
+  destination: languages/
+  domain: castor
+  translator: Paul Ryley <paul@geminilabs.io>
+  team: Gemini Labs <support@geminilabs.io>
+  watch:
+    - templates/**/*.php
+    - '*.php'

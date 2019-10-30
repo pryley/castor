@@ -1,9 +1,8 @@
-$features: (
-	styled: false,
-);
+@tailwind base;
+@tailwind components;
+@tailwind icons;
 
-@import "node_modules/nolie/src/nolie";
+@import 'partials/base';
+@import 'partials/fonts';
 
-body {
-	@include margin(1 0.5);
-}
+@tailwind utilities;

@@ -1,9 +1,9 @@
 {
-  "name": "geminilabs/castor",
+  "name": "pryley/castor",
   "license": "MIT",
   "description": "Parent theme for Dioscuri",
-  "homepage": "https://github.com/geminilabs/castor",
-  "keywords": ["wordpress", "dioscuri", "castor", "theme"],
+  "homepage": "https://github.com/pryley/castor",
+  "keywords": ["wordpress", "dioscuri", "castor", "theme", "pryley"],
   "authors": [
     {
       "name": "Paul Ryley",
@@ -11,19 +11,19 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/geminilabs/castor/issues",
-    "source": "https://github.com/geminilabs/castor"
+    "issues": "https://github.com/pryley/castor/issues",
+    "source": "https://github.com/pryley/castor"
   },
   "archive": {
     "exclude": []
   },
   "require": {
-    "php": ">=5.6.4",
-    "geminilabs/castor-framework": "^1.1.9"
+    "php": ">=7.1.0",
+    "geminilabs/castor-framework": "^1.2.0"
   },
   "scripts": {
     "post-install-cmd": [
-      "npm install --silent; gulp build --silent"
+      "npm install --silent; npm run production --silent; gulp --silent"
     ]
   },
   "config": {

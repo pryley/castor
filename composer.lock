@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fcddf48e325b01cb5e075665f89c9aa",
+    "content-hash": "c99d361cc9e95094f7636643b01081cd",
     "packages": [
         {
             "name": "geminilabs/castor-framework",
-            "version": "v1.1.9",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/geminilabs/castor-framework.git",
-                "reference": "c76e0507662d1cfa5c1a4f277191de1a26efa0e3"
+                "url": "https://github.com/pryley/castor-framework.git",
+                "reference": "bc604e2a8a15496f98e9a5c45cda63a0b900bdd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geminilabs/castor-framework/zipball/c76e0507662d1cfa5c1a4f277191de1a26efa0e3",
-                "reference": "c76e0507662d1cfa5c1a4f277191de1a26efa0e3",
+                "url": "https://api.github.com/repos/pryley/castor-framework/zipball/bc604e2a8a15496f98e9a5c45cda63a0b900bdd3",
+                "reference": "bc604e2a8a15496f98e9a5c45cda63a0b900bdd3",
                 "shasum": ""
             },
             "require": {
@@ -40,14 +40,14 @@
                 }
             ],
             "description": "Framework for Dioscuri's Castor theme.",
-            "homepage": "https://github.com/geminilabs/castor-framework",
+            "homepage": "https://github.com/pryley/castor-framework",
             "keywords": [
                 "castor",
                 "dioscuri",
                 "framework",
                 "wordpress"
             ],
-            "time": "2018-04-06T14:51:03+00:00"
+            "time": "2019-08-07T09:32:41+00:00"
         }
     ],
     "packages-dev": [],
@@ -57,7 +57,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.4"
+        "php": ">=7.1.0"
     },
     "platform-dev": []
 }
