@@ -5,7 +5,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pryley/castor/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pryley/castor/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/pryley/castor/badges/build.png?b=master)](https://scrutinizer-ci.com/g/pryley/castor/build-status/master)
 
-Castor is a WordPress parent theme for [Dioscuri](https://github.com/pryley/dioscuri).
+Castor is a WordPress boilerplate parent theme for [Dioscuri](https://github.com/pryley/dioscuri).
 
 Minimum theme requirements:
 

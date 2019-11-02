@@ -1,7 +1,7 @@
 {
   "name": "pryley/castor",
-  "license": "MIT",
-  "description": "Parent theme for Dioscuri",
+  "license": "GPL-3.0+",
+  "description": "Parent boilerplate theme for Dioscuri",
   "homepage": "https://github.com/pryley/castor",
   "keywords": ["wordpress", "dioscuri", "castor", "theme", "pryley"],
   "authors": [

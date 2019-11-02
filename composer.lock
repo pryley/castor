@@ -8,20 +8,20 @@
     "packages": [
         {
             "name": "geminilabs/castor-framework",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pryley/castor-framework.git",
-                "reference": "bc604e2a8a15496f98e9a5c45cda63a0b900bdd3"
+                "reference": "13c238dcb6bcc3f6b5f6b54935f618a4d4d21379"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pryley/castor-framework/zipball/bc604e2a8a15496f98e9a5c45cda63a0b900bdd3",
-                "reference": "bc604e2a8a15496f98e9a5c45cda63a0b900bdd3",
+                "url": "https://api.github.com/repos/pryley/castor-framework/zipball/13c238dcb6bcc3f6b5f6b54935f618a4d4d21379",
+                "reference": "13c238dcb6bcc3f6b5f6b54935f618a4d4d21379",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.4"
+                "php": ">=7.1"
             },
             "type": "library",
             "autoload": {
@@ -47,7 +47,7 @@
                 "framework",
                 "wordpress"
             ],
-            "time": "2019-08-07T09:32:41+00:00"
+            "time": "2019-10-30T13:52:30+00:00"
         }
     ],
     "packages-dev": [],
