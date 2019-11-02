@@ -1,4 +1,5 @@
 bump:
+  - index.php
   - style.css
 images:
   destination: assets/img/

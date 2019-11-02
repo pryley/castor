@@ -1,3 +1,6 @@
 <?php
 
-// Silence is golden
+/**
+ * @package pryley/castor
+ * @version 2.0.0
+ */
