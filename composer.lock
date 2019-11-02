@@ -4,10 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d5fdef5e6c2ceb73306eecac50f35c3",
+    "content-hash": "7e2d09f3dbb05bf931e08d114b3c86f4",
     "packages": [
         {
-            "name": "geminilabs/castor-framework",
+            "name": "pryley/castor-framework",
             "version": "v1.2.1",
             "source": {
                 "type": "git",

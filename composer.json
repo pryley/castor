@@ -19,7 +19,7 @@
   },
   "require": {
     "php": ">=7.1",
-    "geminilabs/castor-framework": "^1.2.0"
+    "pryley/castor-framework": "^1.2"
   },
   "scripts": {
     "post-install-cmd": [
