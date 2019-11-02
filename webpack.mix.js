@@ -55,4 +55,4 @@ mix
     ],
   })
   .version()
-  // .browserSync('castor.test');
+  .browserSync('castor.test');
