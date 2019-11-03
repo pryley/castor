@@ -1,0 +1,20 @@
+archives: []
+columns: []
+disable_config: false
+disable_posts: false
+enable_archive_page: false
+metaboxes: []
+post_types: []
+remove_dashboard_widgets: false
+remove_wordpress_footer: false
+remove_wordpress_menu: false
+settings:
+  services:
+    title: 3rd Party Services
+    fields:
+      google_analytics:
+        desc: <a href="https://www.google.com/analytics/" target="_blank">What is this?</a>
+        name: Google Analytics ID
+        placeholder: UA-XXXXXXXX-Y
+        type: text
+taxonomies: []

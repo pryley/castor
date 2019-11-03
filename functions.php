@@ -1,40 +1,35 @@
 <?php
 
+define('DEV', WP_ENV == 'development');
+
 require_once __DIR__.'/vendor/autoload.php';
 require_once __DIR__.'/vendor/pryley/castor-framework/castor.php';
 
 /**
+ * Setup theme
  * @return void
- * @action edit_category
- * @action save_post
  */
-function castorFlushTransients()
-{
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
+add_action('after_setup_theme', function () {
+    // Google Analytics
+    if (Development::isProduction() && $analyticsId = SiteMeta::services('google_analytics')) {
+        add_theme_support('soil-google-analytics', $analyticsId, 'wp_footer');
     }
-    delete_transient('castor_categories');
-}
-add_action('edit_category', 'castorFlushTransients');
-add_action('save_post', 'castorFlushTransients');
+});
 
 /**
+ * Disable Black Bar for non-administrators
  * @return bool
  */
-function castorHasCategories()
-{
-    $categoryCount = get_transient('castor_categories');
-    if (false === $categoryCount) {
-        $categories = get_categories([
-            'fields' => 'ids',
-            'hide_empty' => true,
-            'number' => 2,
-        ]);
-        $categoryCount = count($categories);
-        set_transient('castor_categories', $categoryCount);
-    }
-    if (is_preview()) {
-        return true;
-    }
-    return $categoryCount > 1;
-}
+add_filter('blackbar/enabled', function () {
+    return !Development::isProduction() || current_user_can('administrator');
+});
+
+/**
+ * Disable two-factor auth for development and staging environments
+ * @return string|null
+ */
+add_filter('two_factor_primary_provider_for_user', function ($provider) {
+    return Development::isProduction()
+        ? $provider
+        : 'disable_2fa';
+});
