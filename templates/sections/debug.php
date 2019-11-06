@@ -1,5 +1,5 @@
-<?php
+<?php if (!Development::isDev()) {
+    return;
+} ?>
 
-if (Development::isDev()) {
-    printf('<div class="debug-grid">%s</div>', str_repeat('<div></div>', 12));
-}
+<div class="debug-grid"></div>

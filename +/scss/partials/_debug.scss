@@ -1,27 +1,19 @@
-@function debug-color($value, $opacity: 1) {
-    $colors: (
-        navy: #001f3f,
-        blue: #0074d9,
-        aqua: #7fdbff,
-        teal: #39cccc,
-        olive: #3d9970,
-        green: #2ecc40,
-        lime: #01ff70,
-        yellow: #ffdc00,
-        orange: #ff851b,
-        red: #ff4136,
-        fuchsia: #f012be,
-        purple: #b10dc9,
-        maroon: #85144b,
-        white: #fff,
-        silver: #ddd,
-        gray: #aaa,
-        black: #111,
+@mixin _debug-grid-background($options, $breakpoint) {
+    $color: map-get($options, color);
+    $columns: map-get(map-get($options, columns), $breakpoint);
+    $gutter: map-get(map-get($options, gutters), $breakpoint);
+    $offset: map-get(map-get($options, offsets), $breakpoint);
+    $percent: #{100% / $columns};
+    background: repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent #{$gutter},
+        $color #{$gutter},
+        $color calc(#{$percent} - #{$gutter}),
+        transparent calc(#{$percent} - #{$gutter}),
+        transparent $percent
     );
-    @if type-of($value) == number {
-        @return rgba(nth(nth($colors, $value), 2), $opacity);
-    }
-    @return rgba(map-get($colors, $value), $opacity);
+    width: calc(100% - #{$offset});
 }
 
 @mixin debug-baseline($color: #4affff, $line-height: 6px) {
@@ -45,39 +37,36 @@
             xl: 1280px,
         ),
         fontsize: 10px,
-        height: 12px,
+        height: 13px,
         left: 0,
-        lineheight: 12px,
         right: auto,
-        selector: 'body.debug',
+        selector: 'body.dev',
         width: auto,
         zindex: 10000,
     );
     $options: map-merge($defaults, $options);
     $breakpoints: map-get($options, breakpoints);
-    $i: 2;
     #{map-get($options, selector)}::before {
-        background-color: debug-color($i);
-        color: debug-color(black);
+        background-color: #000;
+        color: #fff;
         content: 'base';
-        font-family: sans-serif;
+        font-family: monospace;
         font-size: map-get($options, fontsize);
         height: map-get($options, height);
         left: map-get($options, left);
-        line-height: map-get($options, lineheight);;
+        line-height: 1;
         margin: 0 auto;
-        padding: 0 3px;
+        padding: 0 4px;
         position: fixed !important;
         right: map-get($options, right);
         text-align: center;
+        text-transform: uppercase;
         top: 0;
         width: map-get($options, width);
         z-index: map-get($options, zindex);
-        @each $key, $value in $breakpoints {
-            $i: $i+1;
-            @media (min-width: #{$value}) {
+        @each $key, $min-width in $breakpoints {
+            @media (min-width: #{$min-width}) {
                 content: "#{$key}";
-                background-color: debug-color($i);
             }
         }
     }
@@ -92,7 +81,7 @@
             lg: 1024px,
             xl: 1280px,
         ),
-        color: rgba(0,0,0,0.2),
+        color: rgba(0,0,0,.2),
         columns: (
             base: 4,
             xs: 4,
@@ -102,14 +91,14 @@
             xl: 12,
         ),
         gutters: (
-            base: 24px,
-            xs: 24px,
-            sm: 24px,
-            md: 24px,
-            lg: 24px,
-            xl: 24px,
+            base: 12px,
+            xs: 12px,
+            sm: 12px,
+            md: 12px,
+            lg: 12px,
+            xl: 12px,
         ),
-        max-width: theme('maxWidth.7xl'),
+        max-width: calc(1280px + 24px),
         media: null,
         offsets: (
             base: 24px,
@@ -119,55 +108,35 @@
             lg: 24px,
             xl: 24px,
         ),
-        selector: '.debug-grid',
+        selector: 'body.dev .debug-grid',
     );
     $options: map-merge($defaults, $options);
     $breakpoints: map-get($options, breakpoints);
     $media: map-get($options, media);
-    @include _debug-grid($options, base);
+    #{map-get($options, selector)} {
+        height: 100vh;
+        left: 0;
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        z-index: 1000;
+        &::before {
+            @include _debug-grid-background($options, 'base');
+            content: "";
+            display: block;
+            height: 100vh;
+            margin: 0 auto;
+            max-width: map-get($options, max-width);
+        }
+    }
     @for $i from 1 through length($media) {
         $breakpoint: nth($media, $i);
         @if map-has-key($breakpoints, $breakpoint) {
-            $media-min-width: map-get($breakpoints, $breakpoint);
-            @media (min-width: #{$media-min-width}) {
-                @include _debug-grid($options, $breakpoint);
-            }
-        }
-    }
-}
-
-@mixin _debug-grid($options, $breakpoint) {
-    $columns: map-get(map-get($options, columns), $breakpoint);
-    $gutter: map-get(map-get($options, gutters), $breakpoint);
-    $offset: map-get(map-get($options, offsets), $breakpoint);
-    $grid-offset: ($offset * 2) - $gutter;
-    #{map-get($options, selector)} {
-        position: fixed;
-        top: 0;
-        left: $offset;
-        right: 0;
-        width: calc(100vw - #{$grid-offset});
-        height: 100vh;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 1000;
-        @media (min-width: #{map-get($options, max-width)}) {
-            left: $gutter;
-            width: calc(#{map-get($options, max-width)} - #{$grid-offset});
-            margin: 0 auto;
-        }
-        > div {
-            float: left;
-            height: 100vh;
-            pointer-events: none;
-            width: calc(#{100% / $columns} - #{$gutter});
-            background-color: map-get($options, color);
-            margin-right: $gutter;
-            &:nth-child(1n+#{$columns + 1}) {
-                display: none;
-            }
-            &:nth-child(-n+#{$columns}) {
-                display: block;
+            @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+                #{map-get($options, selector)}::before {
+                    @include _debug-grid-background($options, $breakpoint);
+                }
             }
         }
     }
@@ -182,7 +151,6 @@
         xl: theme('screens.xl'),
         hd: theme('screens.hd'),
     ),
-    selector: 'body.dev',
 ));
 
 @include debug-grid((
@@ -204,22 +172,39 @@
         hd: 12,
     ),
     gutters: (
-        base: 2rem,
-        xs: 2rem,
-        sm: 2rem,
-        md: 2rem,
-        lg: 2rem,
-        xl: 2rem,
-        hd: 2rem,
+        base: theme('spacing.4'),
+        xs: theme('spacing.4'),
+        sm: theme('spacing.4'),
+        md: theme('spacing.4'),
+        lg: theme('spacing.4'),
+        xl: theme('spacing.4'),
+        hd: theme('spacing.4'),
     ),
+    max-width: calc(theme('screens.hd') + theme('spacing.8')),
     media: sm md lg,
     offsets: (
-        base: 2rem,
-        xs: 2rem,
-        sm: 4rem,
-        md: 3rem,
-        lg: 3rem,
-        xl: 3rem,
-        hd: 3rem,
+        base: theme('spacing.8'),
+        xs: theme('spacing.8'),
+        sm: theme('spacing.24'),
+        md: theme('spacing.16'),
+        lg: theme('spacing.16'),
+        xl: theme('spacing.16'),
+        hd: theme('spacing.16'),
     ),
 ));
+
+.dev .container {
+    position: relative;
+}
+.dev .container::before {
+    background-color: rgba(255,0,255,.1);
+    display: block;
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
