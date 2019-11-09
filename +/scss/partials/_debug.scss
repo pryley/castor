@@ -1,210 +1,126 @@
-@mixin _debug-grid-background($options, $breakpoint) {
-    $color: map-get($options, color);
-    $columns: map-get(map-get($options, columns), $breakpoint);
-    $gutter: map-get(map-get($options, gutters), $breakpoint);
-    $offset: map-get(map-get($options, offsets), $breakpoint);
-    $percent: #{100% / $columns};
+:root {
+    --debug-baseline: 1.5rem;
+    --debug-baseline-color: rgba(56,178,172,.25);
+    --debug-color: rgba(112,36,89,.1);
+    --debug-col-gutter: theme('spacing.8');
+    --debug-col-width: theme('width.1/4');
+    --debug-max-width: theme('screens.hd');
+    --debug-offset: theme('spacing.8');
+    --debug-z-index: 10000;
+    @screen sm {
+        --debug-offset: theme('spacing.24');
+    }
+    @screen md {
+        --debug-col-width: theme('width.1/8');
+        --debug-offset: theme('spacing.16');
+    }
+    @screen lg {
+        --debug-col-width: theme('width.1/12');
+    }
+}
+
+.debug::before {
+    @apply .fixed;
+    @apply .font-mono;
+    @apply .leading-none;
+    @apply .left-0;
+    @apply .p-1;
+    @apply .pointer-events-none;
+    @apply .text-white;
+    @apply .text-xs;
+    @apply .top-0;
+    @apply .uppercase;
+    background-color: rgba(0,0,0,.75);
+    content: 'base';
+    z-index: var(--debug-z-index);
+    @screen xs {
+        content: 'xs';
+    }
+    @screen sm {
+        content: 'sm';
+    }
+    @screen md {
+        content: 'md';
+    }
+    @screen lg {
+        content: 'lg';
+    }
+    @screen xl {
+        content: 'xl';
+    }
+    @screen hd {
+        content: 'hd';
+    }
+}
+.debug::after {
+    @apply .fixed;
+    @apply .top-0;
+    @apply .block;
+    @apply .h-screen;
+    @apply .mx-auto;
+    @apply .pointer-events-none;
+    @apply .w-screen;
     background: repeating-linear-gradient(
         to right,
         transparent,
-        transparent #{$gutter},
-        $color #{$gutter},
-        $color calc(#{$percent} - #{$gutter}),
-        transparent calc(#{$percent} - #{$gutter}),
-        transparent $percent
+        transparent calc(var(--debug-col-gutter) / 2),
+        var(--debug-color) calc(var(--debug-col-gutter) / 2),
+        var(--debug-color) calc(var(--debug-col-width) - (var(--debug-col-gutter) / 2)),
+        transparent calc(var(--debug-col-width) - (var(--debug-col-gutter) / 2)),
+        transparent var(--debug-col-width)
     );
-    width: calc(100% - #{$offset});
-}
-
-@mixin debug-baseline($color: #4affff, $line-height: 6px) {
-    background-image: linear-gradient(
-        to bottom,
-        rgba($color, 0.3) 1px,
-        transparent 1px
-    );
-    background-position: left top;
-    background-repeat: repeat;
-    background-size: 100% $line-height;
-}
-
-@mixin debug-media($options: ()) {
-    $defaults: (
-        breakpoints: (
-            xs: 480px,
-            sm: 640px,
-            md: 768px,
-            lg: 1024px,
-            xl: 1280px,
-        ),
-        fontsize: 10px,
-        height: 13px,
-        left: 0,
-        right: auto,
-        selector: 'body.dev',
-        width: auto,
-        zindex: 10000,
-    );
-    $options: map-merge($defaults, $options);
-    $breakpoints: map-get($options, breakpoints);
-    #{map-get($options, selector)}::before {
-        background-color: #000;
-        color: #fff;
-        content: 'base';
-        font-family: monospace;
-        font-size: map-get($options, fontsize);
-        height: map-get($options, height);
-        left: map-get($options, left);
-        line-height: 1;
-        margin: 0 auto;
-        padding: 0 4px;
-        position: fixed !important;
-        right: map-get($options, right);
-        text-align: center;
-        text-transform: uppercase;
-        top: 0;
-        width: map-get($options, width);
-        z-index: map-get($options, zindex);
-        @each $key, $min-width in $breakpoints {
-            @media (min-width: #{$min-width}) {
-                content: "#{$key}";
-            }
-        }
-    }
-}
-
-@mixin debug-grid($options: ()) {
-    $defaults: (
-        breakpoints: (
-            xs: 480px,
-            sm: 640px,
-            md: 768px,
-            lg: 1024px,
-            xl: 1280px,
-        ),
-        color: rgba(0,0,0,.2),
-        columns: (
-            base: 4,
-            xs: 4,
-            sm: 4,
-            md: 8,
-            lg: 12,
-            xl: 12,
-        ),
-        gutters: (
-            base: 12px,
-            xs: 12px,
-            sm: 12px,
-            md: 12px,
-            lg: 12px,
-            xl: 12px,
-        ),
-        max-width: calc(1280px + 24px),
-        media: null,
-        offsets: (
-            base: 24px,
-            xs: 24px,
-            sm: 24px,
-            md: 24px,
-            lg: 24px,
-            xl: 24px,
-        ),
-        selector: 'body.dev .debug-grid',
-    );
-    $options: map-merge($defaults, $options);
-    $breakpoints: map-get($options, breakpoints);
-    $media: map-get($options, media);
-    #{map-get($options, selector)} {
-        height: 100vh;
-        left: 0;
-        pointer-events: none;
-        position: fixed;
-        top: 0;
-        width: 100vw;
-        z-index: 1000;
-        &::before {
-            @include _debug-grid-background($options, 'base');
-            content: "";
-            display: block;
-            height: 100vh;
-            margin: 0 auto;
-            max-width: map-get($options, max-width);
-        }
-    }
-    @for $i from 1 through length($media) {
-        $breakpoint: nth($media, $i);
-        @if map-has-key($breakpoints, $breakpoint) {
-            @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
-                #{map-get($options, selector)}::before {
-                    @include _debug-grid-background($options, $breakpoint);
-                }
-            }
-        }
-    }
-}
-
-@include debug-media((
-    breakpoints: (
-        xs: theme('screens.xs'),
-        sm: theme('screens.sm'),
-        md: theme('screens.md'),
-        lg: theme('screens.lg'),
-        xl: theme('screens.xl'),
-        hd: theme('screens.hd'),
-    ),
-));
-
-@include debug-grid((
-    breakpoints: (
-        xs: theme('screens.xs'),
-        sm: theme('screens.sm'),
-        md: theme('screens.md'),
-        lg: theme('screens.lg'),
-        xl: theme('screens.xl'),
-        hd: theme('screens.hd'),
-    ),
-    columns: (
-        base: 4,
-        xs: 4,
-        sm: 4,
-        md: 8,
-        lg: 12,
-        xl: 12,
-        hd: 12,
-    ),
-    gutters: (
-        base: theme('spacing.4'),
-        xs: theme('spacing.4'),
-        sm: theme('spacing.4'),
-        md: theme('spacing.4'),
-        lg: theme('spacing.4'),
-        xl: theme('spacing.4'),
-        hd: theme('spacing.4'),
-    ),
-    max-width: calc(theme('screens.hd') + theme('spacing.8')),
-    media: sm md lg,
-    offsets: (
-        base: theme('spacing.8'),
-        xs: theme('spacing.8'),
-        sm: theme('spacing.24'),
-        md: theme('spacing.16'),
-        lg: theme('spacing.16'),
-        xl: theme('spacing.16'),
-        hd: theme('spacing.16'),
-    ),
-));
-
-.dev .container {
-    position: relative;
-}
-.dev .container::before {
-    background-color: rgba(255,0,255,.1);
-    display: block;
     content: '';
-    pointer-events: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 100;
+    left: 50%;
+    max-width: calc(var(--debug-max-width) + (var(--debug-offset) / 2));
+    transform: translateX(-50%);
+    width: calc(100% - var(--debug-offset));
+    z-index: var(--debug-z-index);
 }
+.debug .debug-baseline {
+    @apply .relative;
+}
+.debug .debug-baseline::before {
+    @apply .absolute;
+    @apply .block;
+    @apply .h-full;
+    @apply .left-0;
+    @apply .pointer-events-none;
+    @apply .top-0;
+    @apply .w-full;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--debug-baseline-color),
+        var(--debug-baseline-color) 1px,
+        transparent 1px,
+        transparent var(--debug-baseline)
+    );
+    content: '';
+    z-index: var(--debug-z-index);
+}
+// .debug .container,
+// .debug .row,
+// .debug .col {
+//     @apply .relative;
+// }
+// .debug .container::before,
+// .debug .row::before,
+// .debug .col::before {
+//     @apply .absolute;
+//     @apply .block;
+//     @apply .h-full;
+//     @apply .left-0;
+//     @apply .mx-auto;
+//     @apply .pointer-events-none;
+//     @apply .top-0;
+//     background-color: var(--debug-color);
+//     content: '';
+//     z-index: var(--debug-z-index);
+// }
+// .debug .container::before {
+//     @apply .w-full;
+// }
+// .debug .row::before,
+// .debug .col::before {
+//     width: calc(100% - var(--debug-col-gutter));
+// }
+

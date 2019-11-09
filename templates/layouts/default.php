@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" <?php language_attributes(); ?>>
+<html class="no-js <?= Development::className('debug'); ?>" <?php language_attributes(); ?>>
 <?php Template::load('sections/head'); ?>
 <body <?php body_class(Development::className()); ?>>
 	<?php Template::load('sections/outdated'); ?>
@@ -11,7 +11,6 @@
 		<?php Template::load('sections/sidebar'); ?>
 	</div>
 	<?php Template::load('sections/footer'); ?>
-	<?php Template::load('sections/debug'); ?>
 	<?php wp_footer(); ?>
 </body>
 </html>
