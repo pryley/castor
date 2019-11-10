@@ -1,4 +1,4 @@
-<?php /* Not for use on front page because we use "paged" instead of "page" from query */
+<?php
 
 if (!have_posts()) {
     return;
@@ -11,22 +11,21 @@ $query = $pagedQuery instanceof WP_Query
     : $wp_query;
 
 $totalPages = intval($query->max_num_pages);
-$currentPage = intval($query->query_vars['paged']) ?: 1;
+$currentPage = intval($query->query_vars[is_front_page() ? 'page' : 'paged']) ?: 1;
 
 if ($totalPages < 2) {
     return;
 }
 
 $prevPageText = __('Previous page', 'castor');
-$nextPageText = __('Next page', 'castor');
-
 $prevPageLink = $currentPage > 1
-    ? sprintf('<a href="%s" class="button prev">%s</a>', get_pagenum_link($currentPage - 1), $prevPageText)
-    : sprintf('<span class="button disabled prev">%s</span>', $prevPageText);
+    ? sprintf('<a href="%s" class="prev">%s</a>', get_pagenum_link($currentPage - 1), $prevPageText)
+    : sprintf('<span class="disabled prev">%s</span>', $prevPageText);
 
+$nextPageText = __('Next page', 'castor');
 $nextPageLink = $currentPage < $totalPages
-    ? sprintf('<a href="%s" class="button next">%s</a>', get_pagenum_link($currentPage + 1), $nextPageText)
-    : sprintf('<span class="button disabled next">%s</span>', $nextPageText);
+    ? sprintf('<a href="%s" class="next">%s</a>', get_pagenum_link($currentPage + 1), $nextPageText)
+    : sprintf('<span class="disabled next">%s</span>', $nextPageText);
 
 $pageNumbers = paginate_links([
     'current' => $currentPage,
@@ -36,15 +35,15 @@ $pageNumbers = paginate_links([
 ]);
 ?>
 <div class="pagination">
-	<div class="row">
-		<div class="column">
-			<div class="nav-previous">
-				<?= $prevPageLink; ?>
-			</div>
-			<div class="nav-next">
-				<?= $nextPageLink; ?>
-			</div>
-			<?= $pageNumbers; ?>
-		</div>
-	</div>
+    <div class="row">
+        <div class="column">
+            <div class="nav-previous">
+                <?= $prevPageLink; ?>
+            </div>
+            <div class="nav-next">
+                <?= $nextPageLink; ?>
+            </div>
+            <?= $pageNumbers; ?>
+        </div>
+    </div>
 </div>

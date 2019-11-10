@@ -1,16 +1,17 @@
 <!doctype html>
-<html class="no-js <?= Development::className('debug'); ?>" <?php language_attributes(); ?>>
-<?php Template::load('sections/head'); ?>
-<body <?php body_class(Development::className()); ?>>
-	<?php Template::load('sections/outdated'); ?>
-	<?php Template::load('sections/header'); ?>
-	<div class="wrapper" role="document">
-		<main class="main" role="main">
-			<?php Template::main(); ?>
-		</main>
-		<?php Template::load('sections/sidebar'); ?>
-	</div>
-	<?php Template::load('sections/footer'); ?>
-	<?php wp_footer(); ?>
-</body>
+<html class="<?= Development::className('debug'); ?>" <?php language_attributes(); ?>>
+    <head>
+        <?php Template::load('globals/head'); ?>
+    </head>
+    <body <?php body_class(Development::className()); ?>>
+        <?php Template::load('globals/header'); ?>
+        <div>
+            <main>
+                <?php Template::main(); ?>
+            </main>
+            <?php Template::load('globals/sidebar'); ?>
+        </div>
+        <?php Template::load('globals/footer'); ?>
+        <?php wp_footer(); ?>
+    </body>
 </html>

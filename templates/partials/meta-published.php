@@ -10,6 +10,6 @@ $time = sprintf($timeString, $publishedClasses, get_the_date(DATE_W3C), get_the_
 ?>
 
 <span class="posted-on">
-	<span class="screen-reader-text"><?= __('Posted on', 'castor'); ?></span>
-	<a href="<?= esc_url(get_permalink()); ?>" rel="bookmark"><?= $time.$updated; ?></a>
+    <span class="screen-reader-text"><?= __('Posted on', 'castor'); ?></span>
+    <a href="<?= esc_url(get_permalink()); ?>" rel="bookmark"><?= $time.$updated; ?></a>
 </span>

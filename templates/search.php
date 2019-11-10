@@ -1,10 +1,10 @@
 <?php
 
-Template::load('partials/title', 'search');
+Template::load('partials/page-header', 'search');
 
 while (have_posts()) :
     the_post();
-    Template::load('partials/entry-search', get_post_type());
+    Template::load('partials/entry', 'search');
 endwhile;
 
 Template::load('partials/pagination', 'search');
